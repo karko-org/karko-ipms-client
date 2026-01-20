@@ -1,23 +1,14 @@
-import { ProgressRing } from "./ProgressRing";
 import { StatusBadge } from "./StatusBadge";
+import { ProgressRing } from "./ProgressRing";
 
-type Department = {
-  name: string;
-  total: number;
-  normal: number;
-  warning: number;
-  risk: number;
-  progress: number;
-};
-
-type DashboardOverviewProps = {
-  onDepartmentClick: (department: Department) => void;
-};
+interface DashboardOverviewProps {
+  onDepartmentClick: (dept: any) => void;
+}
 
 export function DashboardOverview({
   onDepartmentClick,
 }: DashboardOverviewProps) {
-  const departments: Department[] = [
+  const departments = [
     {
       name: "기술개발부",
       total: 12,
@@ -57,14 +48,12 @@ export function DashboardOverview({
       <h2 className="text-xl mb-4">부서별 현황</h2>
 
       <div className="grid grid-cols-12 gap-6">
-        {departments.map((dept) => (
-          <button
-            key={dept.name}
-            type="button"
-            onClick={() => onDepartmentClick(dept)}
-            className="col-span-3 text-left"
-          >
-            <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200 hover:border-gray-300 hover:shadow transition">
+        {departments.map((dept, idx) => (
+          <div key={idx} className="col-span-3">
+            <div
+              onClick={() => onDepartmentClick(dept)}
+              className="bg-white rounded-lg shadow-sm p-6 border border-gray-200 cursor-pointer hover:shadow-md hover:border-[#4f46e5] transition-all"
+            >
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h3 className="font-medium mb-1">{dept.name}</h3>
@@ -83,7 +72,6 @@ export function DashboardOverview({
                     <span className="font-medium">{dept.normal}</span>
                   </div>
                 </div>
-
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-600">주의</span>
                   <div className="flex items-center gap-2">
@@ -91,7 +79,6 @@ export function DashboardOverview({
                     <span className="font-medium">{dept.warning}</span>
                   </div>
                 </div>
-
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-600">위험</span>
                   <div className="flex items-center gap-2">
@@ -101,7 +88,7 @@ export function DashboardOverview({
                 </div>
               </div>
             </div>
-          </button>
+          </div>
         ))}
       </div>
     </div>

@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { StatusBadge } from "./StatusBadge";
 import { ProgressBar } from "./ProgressBar";
+import { ProjectDetailDashboard } from "./ProjectDetailDashboard";
 
 interface DepartmentDashboardProps {
   department: {
@@ -26,6 +27,7 @@ export function DepartmentDashboard({
   const [statusFilter, setStatusFilter] = useState("all");
   const [ownerFilter, setOwnerFilter] = useState("all");
   const [dateFilter, setDateFilter] = useState("all");
+  const [selectedProject, setSelectedProject] = useState<any>(null);
 
   // Mock KPI data
   const kpis = [
@@ -268,6 +270,7 @@ export function DepartmentDashboard({
                         {projects.map((project) => (
                           <tr
                             key={project.id}
+                            onClick={() => setSelectedProject(project)}
                             className={`hover:bg-gray-50 cursor-pointer transition-colors ${
                               project.status === "risk" ? "bg-red-50/30" : ""
                             }`}
@@ -411,6 +414,13 @@ export function DepartmentDashboard({
           </p>
         </div>
       </div>
+
+      {selectedProject && (
+        <ProjectDetailDashboard
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
     </div>
   );
 }

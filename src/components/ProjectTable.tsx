@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronUp, ChevronDown, Edit } from "lucide-react";
 import { StatusBadge } from "./StatusBadge";
 import { ProgressBar } from "./ProgressBar";
+import { ProjectDetailDashboard } from "./ProjectDetailDashboard";
 
 interface ProjectTableProps {
   onUpdateClick: (project: any) => void;
@@ -11,6 +12,7 @@ export function ProjectTable({ onUpdateClick }: ProjectTableProps) {
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
 
   const projects = [
     {
@@ -178,8 +180,13 @@ export function ProjectTable({ onUpdateClick }: ProjectTableProps) {
           <tbody className="divide-y divide-gray-200">
             {displayedProjects.map((project) => (
               <tr key={project.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 text-sm">{project.name}</td>
-                <td className="px-6 py-4 text-sm">{project.department}</td>
+                <td
+                  onClick={() => setSelectedProject(project)}
+                  className="px-6 py-4 text-sm cursor-pointer hover:text-[#4f46e5]"
+                >
+                  {project.name}
+                </td>
+                <td className="px-6 py-4">{project.department}</td>
                 <td className="px-6 py-4 text-sm text-gray-600">
                   {project.manager}
                 </td>
@@ -197,7 +204,10 @@ export function ProjectTable({ onUpdateClick }: ProjectTableProps) {
                 </td>
                 <td className="px-6 py-4">
                   <button
-                    onClick={() => onUpdateClick(project)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onUpdateClick(project);
+                    }}
                     className="text-[#4f46e5] hover:text-[#4338ca] flex items-center gap-1"
                   >
                     <Edit className="w-4 h-4" />
@@ -247,6 +257,13 @@ export function ProjectTable({ onUpdateClick }: ProjectTableProps) {
           </button>
         </div>
       </div>
+
+      {selectedProject && (
+        <ProjectDetailDashboard
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
     </div>
   );
 }

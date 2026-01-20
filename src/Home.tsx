@@ -6,7 +6,7 @@ import { UpdateModal } from "./components/UpdateModal";
 import { DepartmentDashboard } from "./components/DepartmentDashboard";
 import Login from "./Login";
 
-export default function App() {
+export default function Home() {
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [selectedDepartment, setSelectedDepartment] = useState<any>(null);
   const [showLogin, setShowLogin] = useState(false);
