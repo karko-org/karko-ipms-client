@@ -3,9 +3,17 @@ import { Header } from "./components/Header";
 import { DashboardOverview } from "./components/DashboardOverview";
 import { ProjectTable } from "./components/ProjectTable";
 import { UpdateModal } from "./components/UpdateModal";
+import { DepartmentDashboard } from "./components/DepartmentDashboard";
+import Login from "./Login";
 
-export default function Home() {
+export default function App() {
   const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [selectedDepartment, setSelectedDepartment] = useState<any>(null);
+  const [showLogin, setShowLogin] = useState(false);
+
+  if (showLogin) {
+    return <Login />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -19,7 +27,7 @@ export default function Home() {
           </p>
         </div>
 
-        <DashboardOverview />
+        <DashboardOverview onDepartmentClick={setSelectedDepartment} />
 
         <div className="mt-8">
           <ProjectTable onUpdateClick={setSelectedProject} />
@@ -30,6 +38,13 @@ export default function Home() {
         <UpdateModal
           project={selectedProject}
           onClose={() => setSelectedProject(null)}
+        />
+      )}
+
+      {selectedDepartment && (
+        <DepartmentDashboard
+          department={selectedDepartment}
+          onClose={() => setSelectedDepartment(null)}
         />
       )}
     </div>

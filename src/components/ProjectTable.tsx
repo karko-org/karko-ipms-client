@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ChevronUp, ChevronDown, Edit } from "lucide-react";
-import { ProgressBar } from "./ProgressBar";
 import { StatusBadge } from "./StatusBadge";
+import { ProgressBar } from "./ProgressBar";
 
 interface ProjectTableProps {
   onUpdateClick: (project: any) => void;
