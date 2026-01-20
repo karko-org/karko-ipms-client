@@ -13,19 +13,22 @@ export function UpdateModal({ project, onClose }: UpdateModalProps) {
   const [notes, setNotes] = useState("");
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4">
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+    <div className="fixed inset-0 bg-black/50 z-50 p-4">
+      <div className="mx-auto w-full max-w-2xl h-[calc(100vh-2rem)] bg-white rounded-lg shadow-xl overflow-hidden flex flex-col">
+        {/* Header (항상 보이게) */}
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 shrink-0">
           <h2 className="text-xl font-medium">프로젝트 진행 상황 업데이트</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="shrink-0 rounded-md p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+            aria-label="Close"
           >
             <X className="w-6 h-6" />
           </button>
         </div>
 
-        <div className="p-6 space-y-6">
+        {/* Body (여기만 스크롤) */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               프로젝트명
@@ -56,6 +59,7 @@ export function UpdateModal({ project, onClose }: UpdateModalProps) {
               {(["normal", "warning", "risk"] as const).map((s) => (
                 <button
                   key={s}
+                  type="button"
                   onClick={() => setStatus(s)}
                   className={`px-4 py-2 rounded-lg border-2 transition-all ${
                     status === s
@@ -102,14 +106,17 @@ export function UpdateModal({ project, onClose }: UpdateModalProps) {
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200 bg-gray-50 rounded-b-lg">
+        {/* Footer (항상 보이게) */}
+        <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200 bg-gray-50 shrink-0">
           <button
+            type="button"
             onClick={onClose}
             className="px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-lg transition-colors"
           >
             취소
           </button>
           <button
+            type="button"
             onClick={onClose}
             className="px-4 py-2 bg-[#4f46e5] text-white rounded-lg hover:bg-[#4338ca] transition-colors"
           >
