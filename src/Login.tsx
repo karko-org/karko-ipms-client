@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Eye, EyeOff, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router";
+import { Header } from "./components/Header";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -47,21 +48,7 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header - Same as dashboard */}
-      <header className="bg-[#1e3a5f] text-white">
-        <div className="max-w-[1440px] mx-auto px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-white/10 rounded flex items-center justify-center text-sm">
-              LOGO
-            </div>
-            <h1 className="text-lg font-medium">KAR 운영 계획 관리</h1>
-          </div>
-
-          <div className="flex items-center gap-4 text-sm text-white/80">
-            <span>Internal Intranet Only</span>
-            <span className="text-white/60">v1.0</span>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Main Content */}
       <main
